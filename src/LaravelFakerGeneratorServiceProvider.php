@@ -9,7 +9,7 @@ class LaravelFakerGeneratorServiceProvider extends ServiceProvider
     /**
      * Bootstrap the application services.
      */
-    public function boot()
+    public function boot(): void
     {
         /*
          * Optional methods to load your package assets
@@ -34,20 +34,13 @@ class LaravelFakerGeneratorServiceProvider extends ServiceProvider
                 __DIR__.'/../resources/assets' => public_path('vendor/laravel-faker-generator'),
             ], 'assets');
 
-            // Publishing seeder
-            if (!class_exists('FakerSeeder')) {
-                $this->publishes([
-                    __DIR__ . '/../databases/seeds/faker/FakerSeeder.php' => database_path('seeds/faker/FakerSeeder.php')
-                ], 'seeder');
-            }
-
         }
     }
 
     /**
      * Register the application services.
      */
-    public function register()
+    public function register(): void
     {
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'laravel-faker-generator');

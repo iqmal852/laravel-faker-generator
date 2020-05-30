@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'faker_path' => database_path() . '/seeds/faker'
+    'faker_path' => app_path() . '/Faker'
 ];

@@ -43,4 +43,11 @@ class AccessibleRouteTest extends TestCase
         $this->get('/faker')
         ->assertStatus(200);
     }
+
+    /** @test */
+    public function create_route_can_be_accessed()
+    {
+        $this->get('/faker/create')
+            ->assertStatus(200);
+    }
 }

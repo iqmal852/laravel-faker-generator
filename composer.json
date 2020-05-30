@@ -17,7 +17,9 @@
     ],
     "require": {
         "php": "^7.1",
-        "nette/php-generator": "^3.3"
+        "doctrine/dbal": "^2.10",
+        "nette/php-generator": "^3.3",
+        "yoeunes/toastr": "^1.2"
     },
     "require-dev": {
         "orchestra/testbench": "5.2"
@@ -34,13 +36,7 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
-        "post-install-cmd": [
-            "php artisan vendor:publish --tag=public --force"
-        ],
-        "post-update-cmd": [
-            "php artisan vendor:publish --tag=public --force"
-        ]
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
     },
     "config": {
         "sort-packages": true

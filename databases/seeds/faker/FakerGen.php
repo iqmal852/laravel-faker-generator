@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class FakerSeeder extends Seeder
+class FakerGen extends Seeder
 {
     /**
      * Seed the faker application's database.
