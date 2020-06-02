@@ -2,40 +2,68 @@
 
 @section('content')
 <div class="card-header">
-    <span class="float-md-left"> <h3>Table List</h3>  </span>
+    <span class="float-md-left"> <h3>Generate Faker</h3>  </span>
 
-    <span class="float-md-right"><a href="{{ route('laravel-faker-generator.index') }}" class="btn btn-info">Back</a></span>
+    <span class="float-md-right"><a href="{{ route('laravel-faker-generator.create') }}" class="btn btn-info text-white">Back</a></span>
 </div>
 
 <div class="card-body">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Table(s)</th>
-            <th scope="col">Create Faker</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($tables as $table)
-        <tr>
-            <th scope="row">{{ @++$x }}</th>
-            <td>{{ $table }}</td>
-            <td>
-                <a href="{{ route('laravel-faker-generator.create.faker', ['table' => $table]) }}"
-                   class="btn btn-success btn-sm">
-                    <svg class="bi bi-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                              d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
-                        <path fill-rule="evenodd"
-                              d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
-                    </svg>
-                </a>
-            </td>
-        </tr>
+    <form action="{{ route('laravel-faker-generator.generate.faker', [ 'table' => $table ]) }}" method="post">
+        {{ csrf_field() }}
+        @foreach($columns as $key => $value)
+        <div class="form-group">
+            <div class="row">
+                <div class="col">
+                    <label for="">{{ $key }} (<i> {{$value}} </i> )</label>
+                </div>
+                <div class="col">
+                    <select name="{{ $key }}" class="form-control selection2">
+                        <option value="" selected> Please Select </option>
+                        <optgroup label="Primary">
+                            <option value="increment">Auto-Increment</option>
+                        </optgroup>
+                        <optgroup label="String">
+                            <option value="name">Random String</option>
+                            <option value="name">Name</option>
+                            <option value="email">Email (Unique)</option>
+                            <option value="address">Address</option>
+                            <option value="password">Password</option>
+                        </optgroup>
+                        <optgroup label="Integer">
+                        </optgroup>
+                        <optgroup label="Text">
+                        </optgroup>
+                        <optgroup label="Datetime">
+                            <option value="now">Now</option>
+                        </optgroup>
+<!--                        <optgroup label="Random Data From Table">-->
+<!--                            @foreach($tables as $table)-->
+<!--                            <option value="{{ $table }}"> {{ $table }} </option>-->
+<!--                            @endforeach-->
+<!--                        </optgroup>-->
+                    </select>
+                </div>
+            </div>
+        </div>
+        <hr>
         @endforeach
-        </tbody>
-    </table>
+
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="truncate" value="true" id="truncate">
+                <label class="form-check-label" for="truncate">
+                    Truncate Before Populate Fake Data
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="rows">Number of Rows (Records)</label>
+            <input type="number" class="form-control" name="rows" id="rows" value="100">
+            <small id="emailHelp" class="form-text text-muted">Number of fake data that going to be generate. Current limit is 100k, if you need more, please untick Truncate option and you will be able to re-run Faker.</small>
+        </div>
+        <div class="form-group float-right">
+            <button type="submit" class="btn btn-success">Generate</button>
+        </div>
+    </form>
 </div>
 @endsection

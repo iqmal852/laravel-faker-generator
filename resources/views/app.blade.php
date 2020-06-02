@@ -7,10 +7,6 @@
 
     <title>Laravel Faker Generator</title>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
     <!-- Styles -->
     <link href="/vendor/laravel-faker-generator/css/app.css" rel="stylesheet">
     <link href="/vendor/laravel-faker-generator/css/select2.min.css" rel="stylesheet">
@@ -40,6 +36,23 @@
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <div class="card">
+                        <div class="flash-message">
+                            @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                            @if(Session::has('alert-' . $msg))
+                            <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}</p>
+                            <br>
+                            @endif
+                            @endforeach
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+                        </div>
                         @yield('content')
                     </div>
                 </div>

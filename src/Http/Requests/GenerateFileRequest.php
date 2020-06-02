@@ -24,7 +24,7 @@ class GenerateFileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'row' => 'required|integer|between:1,10',
+            'rows' => 'required|integer|between:1,100000',
         ];
     }
 }

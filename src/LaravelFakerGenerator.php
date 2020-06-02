@@ -14,16 +14,23 @@ use Nette\PhpGenerator\PsrPrinter;
 class LaravelFakerGenerator
 {
     /**
-     * @var PhpFile
+     * Fully qualified namespace of the faker
      */
-    protected $file;
+    protected const FAKER_NAMESPACE = 'App\Faker';
+
+    /**
+     * Limitation query per entry
+     * Limitation must be put to prevent memory limit or
+     * SQL Memory Limit
+     */
+    protected const LIMIT_INSERTION_PER_QUERY = 5000;
 
     /**
      * LaravelFakerGenerator constructor.
      */
     public function __construct()
     {
-        $this->file = new PhpFile();
+
     }
 
     /**
@@ -40,11 +47,11 @@ class LaravelFakerGenerator
         $rows       = $data['row'] ?? 100;
         $self       = new static;
 
-        $className = ucwords($table) . 'Faker';
+        $className = $self->createClassname($table);
         $file      = new PhpFile;
 
         //Create name space
-        $namespace = $file->addNamespace('App\Faker')
+        $namespace = $file->addNamespace(self::FAKER_NAMESPACE)
             ->addUse(DB::class)
             ->addUse(Factory::class)
             ->addUse(Str::class)
@@ -71,6 +78,7 @@ class LaravelFakerGenerator
         $runMethod->addBody('$faker = Factory::create();' . PHP_EOL);
         $runMethod->addBody('$entries = [];' . PHP_EOL);
         $runMethod->addBody('$now = now();' . PHP_EOL);
+        $runMethod->addBody('$rows = ' . $rows . PHP_EOL);
         $runMethod->addBody('$prefixUnique = Str::random(4);' . PHP_EOL);
         $runMethod->addBody('$password = bcrypt("password");' . PHP_EOL);
         $runMethod->addBody($field . PHP_EOL);
@@ -86,15 +94,39 @@ class LaravelFakerGenerator
     }
 
     /**
+     * Create a class name base on table name
+     *
+     * @param $table
+     *
+     * @return string
+     */
+    public function createClassname($table): string
+    {
+        return ucwords($table) . 'Faker';
+    }
+
+    /**
+     * Get a qualified namespaced name of that class
+     *
+     * @param $class
+     *
+     * @return string
+     */
+    public function getFullClassNamespace($class): string
+    {
+        return str_replace('\\', '\\\\',self::FAKER_NAMESPACE) . '\\\\' . $class;
+    }
+
+    /**
      * Create chunking to prevent error overload on insertion
      *
      * @param $table
      *
      * @return string
      */
-    private function insertionCode($table)
+    private function insertionCode($table): string
     {
-        $str = 'foreach(array_chunk($entries, 5000) as $arr) {' . PHP_EOL;
+        $str = 'foreach(array_chunk($entries, $rows) as $arr) {' . PHP_EOL;
         $str .= '   DB::table("' . $table . '")->insert($arr);' . PHP_EOL;
         $str .= '}' . PHP_EOL;
 
