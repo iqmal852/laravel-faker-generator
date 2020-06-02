@@ -1,11 +1,9 @@
 # Very short description of the package
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/iqmal/laravel-faker-generator.svg?style=flat-square)](https://packagist.org/packages/iqmal/laravel-faker-generator)
-[![Build Status](https://img.shields.io/travis/iqmal/laravel-faker-generator/master.svg?style=flat-square)](https://travis-ci.org/iqmal/laravel-faker-generator)
-[![Quality Score](https://img.shields.io/scrutinizer/g/iqmal/laravel-faker-generator.svg?style=flat-square)](https://scrutinizer-ci.com/g/iqmal/laravel-faker-generator)
-[![Total Downloads](https://img.shields.io/packagist/dt/iqmal/laravel-faker-generator.svg?style=flat-square)](https://packagist.org/packages/iqmal/laravel-faker-generator)
+[![Build Status](https://img.shields.io/travis/iqmal/laravel-faker-generator/master.svg?style=flat-square)](https://travis-ci.org/github/iqmal852/laravel-faker-generator)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+Laravel Faker Generator for Dummies. This package intend to speed up development process by reducing time for new developer to learn faker package and help create a huge number of dummy data for testing or development purpose.
 
 ## Installation
 
@@ -19,12 +17,6 @@ composer require iqmal/laravel-faker-generator
 
 ``` php
 // Usage description here
-```
-
-### Testing
-
-``` bash
-composer test
 ```
 
 ### Changelog
