@@ -105,7 +105,7 @@ class FakerGeneratorController extends Controller
 
         Session::flash('alert-success', 'Successfully Generate Faker for table ' . $table);
 
-        return redirect()->route('laravel-faker-generator.create');
+        return redirect()->route('laravel-faker-generator.index');
     }
 
     /**

@@ -78,7 +78,7 @@ class LaravelFakerGenerator
         $runMethod->addBody('$faker = Factory::create();' . PHP_EOL);
         $runMethod->addBody('$entries = [];' . PHP_EOL);
         $runMethod->addBody('$now = now();' . PHP_EOL);
-        $runMethod->addBody('$rows = ' . $rows . PHP_EOL);
+        $runMethod->addBody('$rows = ' . $rows . ';' . PHP_EOL);
         $runMethod->addBody('$prefixUnique = Str::random(4);' . PHP_EOL);
         $runMethod->addBody('$password = bcrypt("password");' . PHP_EOL);
         $runMethod->addBody($field . PHP_EOL);
